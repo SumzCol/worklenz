@@ -4,6 +4,9 @@ import {QueryResult} from "pg";
 import {log_error, isValidateEmail} from "./utils";
 import emailRequestSchema from "../json_schemas/email-request-schema";
 import db from "../config/db";
+import {
+  SOURCE_EMAIL,
+} from "./constants";
 
 const sesClient = new SESClient({region: process.env.AWS_REGION});
 
@@ -88,7 +91,7 @@ export async function sendEmail(email: IEmail): Promise<string | null> {
           }
         }
       },
-      Source: "Worklenz <noreply@worklenz.com>"
+      Source: `Worklenz <${SOURCE_EMAIL}>`
     });
 
     const res = await sesClient.send(command);
