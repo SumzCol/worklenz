@@ -81,6 +81,12 @@ export function isValidateEmail(email: string) {
   return re.test(String(email).toLowerCase());
 }
 
+export function isValidDomain(email: string) {
+  // Test that the email domain is sumz.co
+  const domain = email.split("@")[1];
+  return domain === "sumz.co";
+}
+
 export function toTsQuery(value: string) {
   return `${value.replace(/\s/g, "+").replace(/\(|\)/g, "")}:*`;
 }
