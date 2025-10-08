@@ -11,6 +11,8 @@ import { IRecurringSchedule } from "../interfaces/recurring-tasks";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const error_codes = require("./postgresql-error-codes");
+const email_domain =
+  process.env.ACCEPTED_EMAIL_DOMAIN || "sumz.co";
 
 export function log_error(error: any, user: any | null = null, sendToSlack = true) {
   const msg = error_codes[error.code];
@@ -84,7 +86,7 @@ export function isValidateEmail(email: string) {
 export function isValidDomain(email: string) {
   // Test that the email domain is sumz.co
   const domain = email.split("@")[1];
-  return domain === "sumz.co";
+  return domain === email_domain;
 }
 
 export function toTsQuery(value: string) {
