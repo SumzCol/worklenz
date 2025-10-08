@@ -26,6 +26,8 @@ import { useDocumentTitle } from '@/hooks/useDoumentTItle';
 import alertService from '@/services/alerts/alertService';
 import { useAuthService } from '@/hooks/useAuth';
 import { WORKLENZ_REDIRECT_PROJ_KEY } from '@/shared/constants';
+import config from '@/config/env';
+
 
 interface LoginFormValues {
   email: string;
@@ -47,7 +49,7 @@ const LoginPage: React.FC = () => {
     projectId: '',
   });
 
-  const enableGoogleLogin = import.meta.env.VITE_ENABLE_GOOGLE_LOGIN === 'true' || false;
+  const enableGoogleLogin = window.VITE_ENABLE_GOOGLE_LOGIN === 'true' || false;
 
   useDocumentTitle('Login');
 
@@ -133,7 +135,7 @@ const LoginPage: React.FC = () => {
   const handleGoogleLogin = useCallback(() => {
     try {
       trackMixpanelEvent(evt_login_with_google_click);
-      window.location.href = `${import.meta.env.VITE_API_URL}/secure/google`;
+      window.location.href = `${config.apiUrl}/secure/google`;
     } catch (error) {
       logger.error('Google login failed', error);
     }

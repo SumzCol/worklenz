@@ -9,6 +9,7 @@ declare global {
   interface Window {
     VITE_API_URL?: string;
     VITE_SOCKET_URL?: string;
+    VITE_ENABLE_GOOGLE_LOGIN?: string;
   }
 }
 

@@ -25,6 +25,8 @@ import { useDocumentTitle } from '@/hooks/useDoumentTItle';
 import logger from '@/utils/errorLogger';
 import alertService from '@/services/alerts/alertService';
 import { WORKLENZ_REDIRECT_PROJ_KEY } from '@/shared/constants';
+import config from '@/config/env';
+
 
 // Define the global grecaptcha type
 declare global {
@@ -69,7 +71,7 @@ const SignupPage = () => {
     return localStorage.getItem(WORKLENZ_REDIRECT_PROJ_KEY);
   };
 
-  const enableGoogleLogin = import.meta.env.VITE_ENABLE_GOOGLE_LOGIN === 'true' || false;
+  const enableGoogleLogin = window.VITE_ENABLE_GOOGLE_LOGIN === 'true' || false;
   const enableRecaptcha =
     import.meta.env.VITE_ENABLE_RECAPTCHA === 'true' &&
     import.meta.env.VITE_RECAPTCHA_SITE_KEY &&
@@ -264,7 +266,7 @@ const SignupPage = () => {
     try {
       trackMixpanelEvent(evt_signup_with_google_click);
       const queryParams = getInvitationQueryParams();
-      const url = `${import.meta.env.VITE_API_URL}/secure/google${queryParams ? `?${queryParams}` : ''}`;
+      const url = `${config.apiUrl}/secure/google${queryParams ? `?${queryParams}` : ''}`;
       window.location.href = url;
     } catch (error) {
       message.error('Failed to redirect to Google sign up');

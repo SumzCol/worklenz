@@ -29,8 +29,12 @@ authRouter.post("/update-password", updatePasswordValidator, passwordValidator, 
 
 authRouter.post("/verify-captcha", safeControllerFunction(AuthController.verifyCaptcha));
 
+function next() {
+  console.log(arguments)
+}
+
 // Google authentication
-authRouter.get("/google", (req, res) => {
+authRouter.get("/google", (req, res, next) => {
   return passport.authenticate("google", {
     scope: ["email", "profile"],
     state: JSON.stringify({
@@ -39,10 +43,10 @@ authRouter.get("/google", (req, res) => {
       teamName: req.query.teamName || null,
       project: req.query.project || null
     })
-  })(req, res);
+  })(req, res, next);
 });
 
-authRouter.get("/google/verify", (req, res) => {
+authRouter.get("/google/verify", (req, res, next) => {
   let error = "";
   if ((req.session as any).error) {
     error = `?error=${encodeURIComponent((req.session as any).error as string)}`;
@@ -53,7 +57,7 @@ authRouter.get("/google/verify", (req, res) => {
   return passport.authenticate("google", {
     failureRedirect,
     successRedirect: process.env.LOGIN_SUCCESS_REDIRECT
-  })(req, res);
+  })(req, res, next);
 });
 
 // Mobile Google Sign-In using Passport strategy

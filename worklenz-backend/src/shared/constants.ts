@@ -195,7 +195,7 @@ export const PASSWORD_POLICY =
 export const statusExclude = ["past_due", "paused", "deleted"];
 
 // Trial user team member limit
-export const TRIAL_MEMBER_LIMIT = 10;
+export const TRIAL_MEMBER_LIMIT = 100;
 
 export const HTML_TAG_REGEXP = /<\/?[^>]+>/gi;
 
